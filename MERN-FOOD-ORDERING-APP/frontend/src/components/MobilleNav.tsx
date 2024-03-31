@@ -19,7 +19,7 @@ const MobileNav = () => {
         <SheetTitle>
           <span>Welcome to MernApp.com !</span>
         </SheetTitle>
-        <Separator/>
+        <Separator />
         <SheetDescription className="flex">
           <Button className="flex-1 font-bold bg-orange-500">Log in</Button>
         </SheetDescription>

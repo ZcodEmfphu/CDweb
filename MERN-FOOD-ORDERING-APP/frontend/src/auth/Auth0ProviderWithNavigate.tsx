@@ -9,14 +9,15 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
   const clientID = import.meta.env.VITE_AUTH0_CLIENT_ID;
   const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
 
-  const onRedirectCallback = (appState?: AppState, user?: User) => {
-    console.log("USER", user);
-    
-  };
 
   if (!domain || !clientID || !redirectUri) {
     throw new Error("Unable to auth0");
   }
+
+  const onRedirectCallback = (appState?: AppState, user?: User) => {
+    console.log("USER", user);
+  };
+  
   return (
     <Auth0Provider
       domain={domain}

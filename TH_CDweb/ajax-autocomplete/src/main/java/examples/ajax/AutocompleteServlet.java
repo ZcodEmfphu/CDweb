@@ -25,7 +25,6 @@ public class AutocompleteServlet extends HttpServlet {
         employees.put("9", new EmployeeBean("9","Beth","Johnson"));
         employees.put("10", new EmployeeBean("10","Cindy","Johnson"));
         employees.put("11", new EmployeeBean("11","Cindy","Murphy"));
-        employees.put("12", new EmployeeBean("12","Duke","Hazerd"));
     }
 
     public  void doGet(HttpServletRequest request, HttpServletResponse  response)

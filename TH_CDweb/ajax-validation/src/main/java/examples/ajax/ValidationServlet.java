@@ -15,7 +15,7 @@ public class ValidationServlet extends HttpServlet {
 	// Initialize the "accounts" hashmap. For the sake of this exercise,
 	// two accounts are created with names "greg" and "duke" during
 	// initialization of the Servlet.
-	//
+
 	public void init(ServletConfig config) throws ServletException {
 		this.context = config.getServletContext();
 		accounts.put("greg", "account data");
@@ -29,7 +29,7 @@ public class ValidationServlet extends HttpServlet {
 		// Send back either "<valid>true</valid>" or "<valid>false</valid>"
 		// XML message depending on the validity of the data that was entered.
 		// Note that the content type is "text/xml".
-		//
+		
 		if ((targetId != null) && !accounts.containsKey(targetId.trim())) {
 			response.setContentType("text/xml");
 			response.setHeader("Cache-Control", "no-cache");

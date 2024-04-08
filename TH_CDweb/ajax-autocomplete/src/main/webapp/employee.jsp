@@ -4,20 +4,14 @@ $Id: employee.jsp,v 1.1 2005/04/01 02:18:40 gmurray71 Exp $ --%>
 <head>
 </head>
 <body>
- <h1>Employee Information</h1>
- <hr/>
- <p>
-  First Name:${requestScope.employee.firstName}.
- </p>
- <p>
-  Last Name:${requestScope.employee.lastName}.
- </p>
- <p>
-  Id:${requestScope.employee.id}.
- </p>
- <p>
-  <a href="index.jsp">Go back to the application home</a>.
- </p>
- </body>
+	<h1>Employee Information</h1>
+	<hr />
+	<p>First Name:${requestScope.employee.firstName}.</p>
+	<p>Last Name:${requestScope.employee.lastName}.</p>
+	<p>Id:${requestScope.employee.id}.</p>
+	<p>
+		<a href="index.jsp">Go back to the application home</a>.
+	</p>
+</body>
 </html>
 

@@ -9,7 +9,7 @@
 		previous page and try a different account id.
 	<p>
 	<p>
-		<a href="index.jsp">Go back to the application home</a>.
+		<a href="index1.jsp">Go back to the application home</a>.
 	</p>
 </body>
 </html>

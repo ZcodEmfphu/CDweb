@@ -10,7 +10,7 @@ $Id: success.jsp,v 1.1 2005/03/26 01:59:10 gmurray71 Exp $ --%>
 	<p>Your account has been created with the user id:
 		${requestScope.targetId}.</p>
 	<p>
-		<a href="index.jsp">Go back to the application home</a>.
+		<a href="index1.jsp">Go back to the application home</a>.
 	</p>
 </body>
 </html>

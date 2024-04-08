@@ -1,56 +1,62 @@
 package examples.ajax;
 
-import java.io.*;
-import javax.servlet.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.util.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/validate")
 public class ValidationServlet extends HttpServlet {
 
-	private ServletContext context;
-	private HashMap<String, String> accounts = new HashMap<String, String>();
+    private HashMap<String, String> accounts = new HashMap<>();
 
-	// Initialize the "accounts" hashmap. For the sake of this exercise,
-	// two accounts are created with names "greg" and "duke" during
-	// initialization of the Servlet.
-	//
-	public void init(ServletConfig config) throws ServletException {
-		this.context = config.getServletContext();
-		accounts.put("greg", "account data");
-		accounts.put("duke", "account data");
-	}
+    @Override
+    public void init() throws ServletException {
+        accounts.put("greg", "account data");
+        accounts.put("duke", "account data");
+    }
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String targetId = request.getParameter("id");
+        CompletableFuture<Boolean> isValidUserFuture = CompletableFuture.supplyAsync(() -> isValidUser(targetId));
+        isValidUserFuture.thenAccept(isValid -> {
+            try {
+                response.setContentType("text/xml");
+                response.setHeader("Cache-Control", "no-cache");
+                PrintWriter writer = response.getWriter();
+                writer.write("<valid>" + isValid + "</valid>");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-		// Extract the data of the input form field whose name is "id"
-		String targetId = request.getParameter("id");
-		// Send back either "<valid>true</valid>" or "<valid>false</valid>"
-		// XML message depending on the validity of the data that was entered.
-		// Note that the content type is "text/xml".
-		//
-		if ((targetId != null) && !accounts.containsKey(targetId.trim())) {
-			response.setContentType("text/xml");
-			response.setHeader("Cache-Control", "no-cache");
-			response.getWriter().write("<valid>true</valid>");
-		} else {
-			response.setContentType("text/xml");
-			response.setHeader("Cache-Control", "no-cache");
-			response.getWriter().write("<valid>false</valid>");
-		}
-	}
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String targetId = request.getParameter("id");
+        CompletableFuture<Boolean> isValidUserFuture = CompletableFuture.supplyAsync(() -> isValidUser(targetId));
+        isValidUserFuture.thenAccept(isValid -> {
+            try {
+                if (isValid) {
+                    accounts.put(targetId, "account data");
+                    request.setAttribute("targetId", targetId);
+                    request.getRequestDispatcher("/success.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("/error.jsp").forward(request, response);
+                }
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-		String targetId = request.getParameter("id");
-		if ((targetId != null) && !accounts.containsKey(targetId.trim())) {
-			accounts.put(targetId.trim(), "account data");
-			request.setAttribute("targetId", targetId);
-			context.getRequestDispatcher("/success.jsp").forward(request, response);
-		} else {
-			context.getRequestDispatcher("/error.jsp").forward(request, response);
-		}
-	}
-
+    private boolean isValidUser(String targetId) {
+        return targetId != null && !accounts.containsKey(targetId.trim());
+    }
 }

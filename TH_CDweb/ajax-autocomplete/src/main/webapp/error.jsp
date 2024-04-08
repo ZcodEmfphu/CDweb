@@ -4,14 +4,14 @@ $Id: error.jsp,v 1.1 2005/04/01 02:18:40 gmurray71 Exp $ --%>
 <head>
 </head>
 <body>
- <h1>Seach Error</h1>
- <hr/>
- <p>
-  An error occured doing the search. Please go back and try again.
- <p>
- <p>
-  <a href="index.jsp">Go back to the application home</a>.
- </p>
+	<h1>Seach Error</h1>
+	<hr />
+	<p>An error occured doing the search. Please go back and try again.
+	
+	<p>
+	<p>
+		<a href="index.jsp">Go back to the application home</a>.
+	</p>
 </body>
 </html>
 

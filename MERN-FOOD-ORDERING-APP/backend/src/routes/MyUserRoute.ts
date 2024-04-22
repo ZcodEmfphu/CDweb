@@ -7,3 +7,5 @@ const router = express.Router();
 router.post("/", MyUserController.createCurrentUser);
 
 export default router;
+
+// create User request

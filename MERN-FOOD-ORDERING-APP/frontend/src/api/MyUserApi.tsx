@@ -9,7 +9,8 @@ type CreateUserRequest = {
 };
 
 export const useCreateMyUser = () => {
-  const { getAccessTokenSilently } = useAuth0();
+
+  const {getAccessTokenSilently} = useAuth0();
 
   const createMyUserRequest = async (user: CreateUserRequest) => {
     const accessToken = await getAccessTokenSilently();
@@ -23,7 +24,7 @@ export const useCreateMyUser = () => {
     });
 
     if (!response.ok) {
-      throw new Error("Fail to create user    ");
+      throw new Error("Fail to create user");
     }
   };
 

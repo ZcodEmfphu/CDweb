@@ -20,7 +20,7 @@ const HomePage = () => {
             Dowload the MernEats App for faster ordering and personalised
             recommendations
           </span>
-          <img src={appDownloadImage}/>
+          <img src={appDownloadImage} />
         </div>
       </div>
     </div>

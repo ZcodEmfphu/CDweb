@@ -1,6 +1,19 @@
 import { Request, Response } from "express";
 import User from "../model/user";
 
+const getCurrentUser = async (req: Request, res: Response) => {
+  try {
+    const currentUser = await User.findOne({ _id: req.userId });
+    if (!currentUser) {
+      res.status(404).json({ message: "User not found" });
+    }
+    res.json(currentUser);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Somthing went wrong" });
+  }
+};
+
 const createCurrentUser = async (req: Request, res: Response) => {
   try {
     const { auth0Id } = req.body;
@@ -14,23 +27,22 @@ const createCurrentUser = async (req: Request, res: Response) => {
     await newUser.save();
 
     res.status(201).json(newUser.toObject());
-
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Error Creating User" });
   }
 };
 
-const updateCurrentUser = async (req: Request, res: Response)=>{
-  try{
-    const {name, addressLine1, country, city} = req.body;
-    const user = await User.findById(req.userId)
+const updateCurrentUser = async (req: Request, res: Response) => {
+  try {
+    const { name, addressLine1, country, city } = req.body;
+    const user = await User.findById(req.userId);
 
-    if(!user){
-      return res.status(404).json({message:"User not found"});
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    user.name =name;
+    user.name = name;
     user.addressLine1 = addressLine1;
     user.city = city;
     user.conntry = country;
@@ -38,12 +50,14 @@ const updateCurrentUser = async (req: Request, res: Response)=>{
     await user.save();
 
     res.send(user);
-  }catch(error){
+  } catch (error) {
     console.log(error);
-    res.status(500).json({message:"Error updating user"});
+    res.status(500).json({ message: "Error updating user" });
   }
-}
+};
 
 export default {
-  createCurrentUser, updateCurrentUser
+  createCurrentUser,
+  updateCurrentUser,
+  getCurrentUser,
 };

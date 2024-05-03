@@ -42,7 +42,7 @@ export const jwtParse = async (
       return res.sendStatus(401);
     }
 
-    req.auth0Id = auth0Id;
+    req.auth0Id = auth0Id as string;
     req.userId = user._id.toString();
     next();
 

@@ -2,6 +2,8 @@
 <html>
 <head>
 <title>Form Data Validation using AJAX</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./script/jquery-async-await.js"></script>
 </head>
 
 <body onload="disableSubmitBtn()">
@@ -33,7 +35,36 @@
 			</tr>
 		</table>
 	</form>
-</body>
-<script src="./scripts/jquery-async-await.js"></script>
 
+	<script>
+        async function disableSubmitBtn() {
+            $('#submit_btn').prop('disabled', true); // Initially disable submit button
+
+            $('#userid').on('input', async function () {
+                const userId = $(this).val();
+                try {
+                    const response = await $.ajax({
+                        url: 'validate', // Specify your validation endpoint here
+                        method: 'POST',
+                        data: {
+                            action: 'check',
+                            id: userId
+                        }
+                    });
+
+                    // Check response from server
+                    if (response.valid) {
+                        $('#userIdMessage').text('');
+                        $('#submit_btn').prop('disabled', false);
+                    } else {
+                        $('#userIdMessage').text('User id already taken!');
+                        $('#submit_btn').prop('disabled', true);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    </script>
+</body>
 </html>

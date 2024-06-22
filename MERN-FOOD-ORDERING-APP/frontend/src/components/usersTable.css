@@ -1,0 +1,46 @@
+.text-gray-900 {
+    color: #1a202c;
+  }
+  
+  /* Xóa background mặc định của table và thay đổi màu viền */
+  table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent; /* Xóa nền mặc định */
+    border-collapse: collapse;
+    border: 1px solid #e2e8f0; /* Màu viền */
+    border-radius: 0.25rem; /* Bo góc */
+  }
+  
+  th,
+  td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  tr:hover {
+    background-color: #f7fafc;
+  }
+  
+  input[type='text'],
+  select {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 0.5rem;
+  }
+  
+  button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }

@@ -1,5 +1,5 @@
 import { User } from "@/type";
-import { useAuth0 } from "@auth0/auth0-react";
+import {  useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "sonner";
 
@@ -18,11 +18,14 @@ export const useGetMyUser = () => {
         "Content-Type": "application/json",
       },
     });
-
     if (!response.ok) {
       throw new Error("Failed to fetch user 1");
     }
-    return response.json();
+    const userData: User = await response.json();
+    if (userData.blocked) {
+      throw new Error("User is blocked");
+    }
+    return userData;
   };
 
   const {

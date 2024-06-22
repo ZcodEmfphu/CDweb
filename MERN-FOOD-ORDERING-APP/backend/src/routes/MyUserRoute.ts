@@ -15,5 +15,7 @@ router.put(
   validateMyUserRequest,
   MyUserController.updateCurrentUser
 );
+router.get("/getAllUser", jwtParse,MyUserController.getAllUsers);
+router.patch("/:userId/toggleBlock",jwtParse, MyUserController.toggleUserBlockStatus);
 
 export default router;

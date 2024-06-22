@@ -11,9 +11,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
+import LoadingButton from "@/components/LoadingButton";
 import { User } from "@/type";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   email: z.string().optional(),
@@ -37,6 +38,10 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
     defaultValues: currentUser,
   });
 
+  useEffect(() => {
+    form.reset(currentUser);
+  }, [currentUser, form]);
+
   return (
     <Form {...form}>
       <form
@@ -45,7 +50,12 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
       >
         <div>
           <h2 className="text-2xl font-bold">User Profile Form</h2>
-          <FormDescription></FormDescription>
+          <FormDescription>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat
+            atque est accusantium quae sunt rem, illum laborum non consequuntur
+            officia provident iste animi quis, quia quas ipsum iure. Temporibus,
+            neque!
+          </FormDescription>
         </div>
         <FormField
           control={form.control}
@@ -67,7 +77,7 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
             <FormItem className="flex-1">
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input {...field}  className="bg-white" />
+                <Input {...field} className="bg-white" />
               </FormControl>
               <FormMessage />
             </FormItem>

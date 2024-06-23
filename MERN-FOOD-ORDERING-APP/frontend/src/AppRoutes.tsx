@@ -13,6 +13,7 @@ import ProductPage from "./pages/admin/ProductsPage";
 import SearchPage from "./pages/SearchPage";
 import DetailPage from "./pages/DetailPage";
 import OrderPage from "./pages/admin/OrderPage";
+import ReportPage from "./pages/admin/reportPage";
 
 const AppRoutes = () => {
   return (
@@ -96,6 +97,14 @@ const AppRoutes = () => {
           element={
             <Layout>
               <OrderPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/admin/reports"
+          element={
+            <Layout>
+              <ReportPage />
             </Layout>
           }
         />

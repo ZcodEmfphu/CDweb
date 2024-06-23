@@ -84,18 +84,16 @@ function Home() {
              deliveryPrice: item.deliveryPrice,
              estimatedDeliveryTime:item.estimatedDeliveryTime,
              cuisines: item.cuisines,
-             menuItems: item.menuItem,
+             menuItems: item.menuItems,
              imageUrl: item.imageUrl,
              lastUpdated: item.lastUpdated,
           }));
           setRestaurant(restaurantsData);
 
           const collectMenuItems = () => {
-            let collectedItems: MenuItem[] = [];
-            restaurantsData.forEach((restaurant) => {
-                collectedItems = [...collectedItems, ...restaurant.menuItems];
-            });
-            return collectedItems;
+            return restaurantsData.reduce((collectedItems: MenuItem[], restaurant: Restaurant) => {
+                return [...collectedItems, ...restaurant.menuItems];
+            }, []);
         };
         const allMenuItems = collectMenuItems();
         setMenuItems(allMenuItems);

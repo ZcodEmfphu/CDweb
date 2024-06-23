@@ -9,6 +9,7 @@ import Customers from "./pages/admin/Customers";
 import ManageRestaurantPage from "./pages/ManageRestaurantPage";
 import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
+import DetailPage from "./pages/DetailPage";
 
 const AppRoutes = () => {
   return (
@@ -27,6 +28,14 @@ const AppRoutes = () => {
         element={
           <Layout showHero={false}>
             <SearchPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/detail/:restaurantId"
+        element={
+          <Layout showHero={false}>
+            <DetailPage />
           </Layout>
         }
       />

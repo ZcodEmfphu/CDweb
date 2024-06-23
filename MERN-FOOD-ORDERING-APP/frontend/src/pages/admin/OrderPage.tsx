@@ -3,7 +3,7 @@ import Sidebar from './Sidebar'
 import Orders from './Orders'
 import './App.css'
 
-function OderPage() {
+function OrderPage() {
 
     const [openSidebarToggle, srtOpenSidebarToggle] = useState(false);
 
@@ -20,4 +20,4 @@ function OderPage() {
 }
 
 
-export default OderPage
+export default OrderPage

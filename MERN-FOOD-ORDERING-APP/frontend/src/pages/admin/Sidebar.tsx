@@ -25,28 +25,28 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
 
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-        <Link to="/admin" className="sidebar-link">
-            <BsPeopleFill className="icon" /> Dashboard
+        <Link to="/admin/dashboard" className="sidebar-link">
+            <BsGrid1X2Fill className="icon" /> Dashboard
           </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="#">
-            <BsFillArchiveFill className="icon" />Product
-          </a>
+        <Link to="/admin/products" className="sidebar-link">
+            <BsFillArchiveFill className="icon" />Products
+            </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="#">
-            <BsFillGrid3X3GapFill className="icon" />Categories
-          </a>
+        <Link to="/admin/restaurants" className="sidebar-link">
+            <BsFillGrid3X3GapFill className="icon" />Restaurants
+            </Link>
         </li>
         <li className="sidebar-list-item">
-          <Link to="/customers" className="sidebar-link">
+          <Link to="/admin/customers" className="sidebar-link">
             <BsPeopleFill className="icon" /> Customers
           </Link>
         </li>
         <li className="sidebar-list-item">
           <a href="#">
-            <BsListCheck className="icon" />Inventory
+            <BsListCheck className="icon" />Orders
           </a>
         </li>
         <li className="sidebar-list-item">

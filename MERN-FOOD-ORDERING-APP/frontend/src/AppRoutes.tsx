@@ -8,6 +8,8 @@ import Admin from "./pages/admin/Admin";
 import Customers from "./pages/admin/Customers";
 import ManageRestaurantPage from "./pages/ManageRestaurantPage";
 import HomePage from "./pages/HomePage";
+import RestaurantPage from "./pages/admin/RestaurantPage";
+import ProductPage from "./pages/admin/ProductsPage";
 import SearchPage from "./pages/SearchPage";
 
 const AppRoutes = () => {
@@ -48,7 +50,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/admin"
+          path="/admin/dashboard"
           element={
             <Layout>
               <Admin />
@@ -56,10 +58,26 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/customers"
+          path="/admin/customers"
           element={
             <Layout>
               <Customers />
+            </Layout>
+          }
+        />
+        <Route
+          path="/admin/restaurants"
+          element={
+            <Layout>
+              <RestaurantPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <Layout>
+              <ProductPage />
             </Layout>
           }
         />

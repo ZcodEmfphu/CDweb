@@ -1,11 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Restaurant } from '../../type';
+import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
+import { toast } from 'sonner';
 
 interface RestaurantsTableProps {
   restaurants: Restaurant[];
+  fetchRestaurants: () => void;
 }
 
-const RestaurantsTable: React.FC<RestaurantsTableProps> = ({ restaurants }) => {
+const RestaurantsTable: React.FC<RestaurantsTableProps> = ({ restaurants, fetchRestaurants}) => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const { getAccessTokenSilently } = useAuth0();
+
+  const handleDelete = async (restaurantId: string) => {
+    try {
+      const accessToken = await getAccessTokenSilently();
+      const response = await axios.delete(`${API_BASE_URL}/api/my/restaurant/?restaurantId=${restaurantId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (response.status === 200) {
+         toast.success("Restaurant deleted!");
+      }
+      fetchRestaurants();
+    } catch (error) {
+      console.error('Error deleting restaurant:', error);
+    }
+  };
 
   return (
     <div className="text-gray-900">
@@ -20,7 +43,6 @@ const RestaurantsTable: React.FC<RestaurantsTableProps> = ({ restaurants }) => {
               <th className="text-left p-3 px-5">City</th>
               <th className="text-left p-3 px-5">Country</th>
               <th className="text-left p-3 px-5">Delivery Price</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -57,9 +79,10 @@ const RestaurantsTable: React.FC<RestaurantsTableProps> = ({ restaurants }) => {
                 <td className="p-3 px-5 flex justify-end">
                   <button
                     type="button"
-                    className={`text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline`}
+                    onClick={() => handleDelete(restaurant._id)}
+                    className={`text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline`}
                   >
-                    Save
+                    Delete
                   </button>
                 </td>
               </tr>

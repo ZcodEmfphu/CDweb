@@ -94,4 +94,5 @@ const uploadImage = async (file: Express.Multer.File) => {
 export default {
   createMyRestaurant,
   getMyRestaurant,
+  updateMyRestaurant,
 };

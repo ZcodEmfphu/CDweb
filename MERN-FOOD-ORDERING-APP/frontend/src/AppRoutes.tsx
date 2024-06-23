@@ -10,6 +10,7 @@ import ManageRestaurantPage from "./pages/ManageRestaurantPage";
 import HomePage from "./pages/HomePage";
 import RestaurantPage from "./pages/admin/RestaurantPage";
 import ProductPage from "./pages/admin/ProductsPage";
+import SearchPage from "./pages/SearchPage";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,14 @@ const AppRoutes = () => {
         }
       />
       <Route path="/auth-callback" element={<AuthCallbackPage />} />
+      <Route
+        path="/search/:city"
+        element={
+          <Layout showHero={false}>
+            <SearchPage />
+          </Layout>
+        }
+      />
       <Route element={<ProtectedRoute />}>
         <Route
           path="/user-profile"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MenuItem } from '../../type';
 
 interface ProductsTableProps {
@@ -6,6 +6,16 @@ interface ProductsTableProps {
 }
 
 const ProductsTable: React.FC<ProductsTableProps> = ({ products }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 7;
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="text-gray-900">
@@ -18,11 +28,10 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ products }) => {
             <tr className="border-b">
               <th className="text-left p-3 px-5">Name</th>
               <th className="text-left p-3 px-5">Price</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {currentProducts.map((product) => (
               <tr key={product._id} className="hover:bg-gray-100">
                 <td className="p-3 px-5">
                   <input
@@ -42,6 +51,24 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ products }) => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="pagination flex justify-center">
+        <ul className="flex list-none rounded-md">
+          {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, index) => (
+            <li key={index} className="mx-1">
+              <button
+                className={`px-3 py-1 ${
+                  currentPage === index + 1
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-white text-blue-500'
+                } rounded-md hover:bg-blue-200 focus:outline-none`}
+                onClick={() => paginate(index + 1)}
+              >
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ const Products: React.FC = () => {
          deliveryPrice: item.deliveryPrice,
          estimatedDeliveryTime:item.estimatedDeliveryTime,
          cuisines: item.cuisines,
-         menuItems: item.menuItem,
+         menuItems: item.menuItems,
          imageUrl: item.imageUrl,
          lastUpdated: item.lastUpdated,
       }));

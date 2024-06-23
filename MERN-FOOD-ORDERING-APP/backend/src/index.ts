@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 
 import myUserRoute from "./routes/MyUserRoute";
 import myRestaurantRoute from "./routes/MyRestaurantRoute";
+import restaurantRoute from "./routes/RestaurantRoute";
+
 import { v2 as cloudinary } from "cloudinary";
 
 // connect mongoose
@@ -29,6 +31,7 @@ app.get("/health", async (req: Request, res: Response) => {
 // /aip/my/user
 app.use("/api/my/user", myUserRoute);
 app.use("/api/my/restaurant", myRestaurantRoute);
+app.use("/api/restaurant", restaurantRoute);
 
 // app.get("/test", async (req: Request, res: Response) => {
 //   res.json({ message: "Hello " });

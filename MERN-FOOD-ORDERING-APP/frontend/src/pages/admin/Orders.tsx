@@ -6,8 +6,7 @@ const Orders: React.FC = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [orders, setOrders] = useState<Order[]>([]);
 
-
-  const fetchRestaurants = async () => {
+  const fetchOrders = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/order/getAllOrder`, {
         method: 'GET',
@@ -30,8 +29,9 @@ const Orders: React.FC = () => {
     }
   };
 
+
   useEffect(() => {
-    fetchRestaurants();
+    fetchOrders();
   }, []);
 
 

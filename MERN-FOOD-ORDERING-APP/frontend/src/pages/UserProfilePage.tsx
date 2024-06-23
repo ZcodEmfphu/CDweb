@@ -13,7 +13,7 @@ const UserProfilePage = () => {
     return <span>Unable to load User-profile</span>;
   }
   if (currentUser.role === "admin") {
-    return <Navigate to="/admin" />;
+    return <Navigate to="/admin/dashboard" />;
   }
 
   return (

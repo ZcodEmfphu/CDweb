@@ -12,7 +12,7 @@ import {
     LineChart,
     Line
 } from 'recharts';
-import {User} from '../../type';
+import {MenuItem, Restaurant, User} from '../../type';
 import Typed from 'typed.js';
 import {  useAuth0 } from "@auth0/auth0-react";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -25,8 +25,8 @@ function Home() {
     const typedTextRef = useRef<HTMLSpanElement>(null);
 
     const [users, setUsers] = useState<User[]>([]);
-    const [restaurant, setRestaurant] = useState([]);
-    const [products, setProduct] = useState([]);
+    const [restaurants, setRestaurant] = useState<Restaurant[]>([]);
+    const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const { getAccessTokenSilently } = useAuth0();
 
@@ -60,8 +60,52 @@ function Home() {
             setIsLoading(false);
         }
     };
+    const fetchRestaurants = async () => {
+        const accessToken = await getAccessTokenSilently();
+        try {
+          const response = await fetch(`${API_BASE_URL}/api/my/restaurant/getAllRestaurant`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              'Content-Type': 'application/json',
+            },
+          });
+          if (!response.ok) {
+            throw new Error('Failed to fetch restaurants');
+          }
+          const data = await response.json();
+
+          const restaurantsData: Restaurant[] = data.map((item: any) => ({
+            _id: item._id,
+             user:item.user,
+             restaurantName: item.restaurantName,
+             city: item.city,
+             country: item.country,
+             deliveryPrice: item.deliveryPrice,
+             estimatedDeliveryTime:item.estimatedDeliveryTime,
+             cuisines: item.cuisines,
+             menuItems: item.menuItem,
+             imageUrl: item.imageUrl,
+             lastUpdated: item.lastUpdated,
+          }));
+          setRestaurant(restaurantsData);
+
+          const collectMenuItems = () => {
+            let collectedItems: MenuItem[] = [];
+            restaurantsData.forEach((restaurant) => {
+                collectedItems = [...collectedItems, ...restaurant.menuItems];
+            });
+            return collectedItems;
+        };
+        const allMenuItems = collectMenuItems();
+        setMenuItems(allMenuItems);
+        } catch (error) {
+          console.error('Error fetching restaurants:', error);
+        }
+      };
     useEffect(() => {
         fetchUsers();
+        fetchRestaurants();
 
         if (typedTextRef.current) {
             const options = {
@@ -112,14 +156,14 @@ function Home() {
                         <h3>PRODUCTS</h3>
                         <BsFillArchiveFill className="card-icon" />
                     </div>
-                    <h1>0</h1>
+                    <h1>{isLoading ? 'Loading...' : menuItems.length}</h1>
                 </div>
                 <div className="card">
                     <div className="card-inner">
                         <h3>RESTAURANTS</h3>
                         <BsFillGrid3X3GapFill className="card-icon" />
                     </div>
-                    <h1>0</h1>
+                    <h1>{isLoading ? 'Loading...' : restaurants.length}</h1>
                 </div>
                 <div className="card">
                     <div className="card-inner">

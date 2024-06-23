@@ -26,9 +26,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
         <table className="w-full text-md bg-white shadow-md rounded mb-4">
           <thead>
             <tr className="border-b">
-              <th className="text-left p-3 px-5">User</th>
-              <th className="text-left p-3 px-5">Restaurant</th>
-              <th className="text-left p-3 px-5">Total Amount</th>
+              <th className="text-left p-3 px-5">ID</th>
               <th className="text-left p-3 px-5">Status</th>
               <th></th>
             </tr>
@@ -37,13 +35,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
             {currentOrders.map((order) => (
               <tr key={order._id} className="hover:bg-gray-100">
                 <td className="p-3 px-5" style={{ width: '20%' }}>
-                  <input type="text" defaultValue={order.user.name} className="bg-transparent w-full" />
-                </td>
-                <td className="p-3 px-5" style={{ width: '20%' }}>
-                  <input type="text" defaultValue={order.restaurant.restaurantName} className="bg-transparent w-full" />
-                </td>
-                <td className="p-3 px-5" style={{ width: '15%' }}>
-                  <input type="text" defaultValue={String(order.totalAmount)} className="bg-transparent w-full" />
+                  <input type="text" defaultValue={order._id} className="bg-transparent w-full" />
                 </td>
                 <td className="p-3 px-5" style={{ width: '15%' }}>
                   <input type="text" defaultValue={order.status} className="bg-transparent w-full" />

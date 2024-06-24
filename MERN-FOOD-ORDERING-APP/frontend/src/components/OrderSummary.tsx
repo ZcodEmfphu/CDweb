@@ -11,7 +11,6 @@ type Props = {
   removeFromCart: (cartItem: CartItem) => void;
 };
 
-// Order Sum
 const OrderSummary = ({ restaurant, cartItems, removeFromCart }: Props) => {
   const getTotalCost = () => {
     const totalInPence = cartItems.reduce(

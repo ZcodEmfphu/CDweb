@@ -1,15 +1,14 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Layout from "./layout/layout";
 
+import HomePage from "./pages/HomePage";
 import AuthCallbackPage from "./pages/AuthCallBackPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import ProtectedRoute from "./auth/ProtectedRoute";
-import Admin from "./pages/admin/Admin";
-import Customers from "./pages/admin/Customers";
 import ManageRestaurantPage from "./pages/ManageRestaurantPage";
-import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import DetailPage from "./pages/DetailPage";
+import OrderStatusPage from "./pages/OrderStatusPage";
+import Layout from "./layout/layout";
 
 const AppRoutes = () => {
   return (
@@ -41,6 +40,14 @@ const AppRoutes = () => {
       />
       <Route element={<ProtectedRoute />}>
         <Route
+          path="/order-status"
+          element={
+            <Layout>
+              <OrderStatusPage />
+            </Layout>
+          }
+        />
+        <Route
           path="/user-profile"
           element={
             <Layout>
@@ -53,22 +60,6 @@ const AppRoutes = () => {
           element={
             <Layout>
               <ManageRestaurantPage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <Layout>
-              <Admin />
-            </Layout>
-          }
-        />
-        <Route
-          path="/customers"
-          element={
-            <Layout>
-              <Customers />
             </Layout>
           }
         />

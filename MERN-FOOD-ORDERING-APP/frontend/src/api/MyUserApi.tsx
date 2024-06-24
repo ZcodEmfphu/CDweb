@@ -1,5 +1,5 @@
 import { User } from "@/type";
-import {  useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "sonner";
 
@@ -18,14 +18,12 @@ export const useGetMyUser = () => {
         "Content-Type": "application/json",
       },
     });
+
     if (!response.ok) {
-      throw new Error("Failed to fetch user 1");
+      throw new Error("Failed to fetch user");
     }
-    const userData: User = await response.json();
-    if (userData.blocked) {
-      throw new Error("User is blocked");
-    }
-    return userData;
+
+    return response.json();
   };
 
   const {
@@ -37,6 +35,7 @@ export const useGetMyUser = () => {
   if (error) {
     toast.error(error.toString());
   }
+
   return { currentUser, isLoading };
 };
 
@@ -60,7 +59,7 @@ export const useCreateMyUser = () => {
     });
 
     if (!response.ok) {
-      throw new Error("Fail to create user");
+      throw new Error("Failed to create user");
     }
   };
 
@@ -102,7 +101,7 @@ export const useUpdateMyUser = () => {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to update user 2");
+      throw new Error("Failed to update user");
     }
 
     return response.json();

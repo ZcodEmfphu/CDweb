@@ -111,7 +111,6 @@ const createCheckoutSession = async (req: Request, res: Response) => {
   }
 };
 
-// Item array
 const createLineItems = (
   checkoutSessionRequest: CheckoutSessionRequest,
   menuItems: MenuItemType[]

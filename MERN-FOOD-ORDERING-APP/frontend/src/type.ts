@@ -2,11 +2,9 @@ export type User = {
   _id: string;
   email: string;
   name: string;
-  role: string;
   addressLine1: string;
   city: string;
   country: string;
-  blocked: boolean;
 };
 
 export type MenuItem = {
@@ -29,14 +27,6 @@ export type Restaurant = {
   lastUpdated: string;
 };
 
-export type RestaurantSearchResponse = {
-  data: Restaurant[];
-  pagination: {
-    total: number;
-    page: number;
-    pages: number;
-  };
-};
 export type OrderStatus =
   | "placed"
   | "paid"
@@ -63,4 +53,13 @@ export type Order = {
   status: OrderStatus;
   createdAt: string;
   restaurantId: string;
+};
+
+export type RestaurantSearchResponse = {
+  data: Restaurant[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
 };

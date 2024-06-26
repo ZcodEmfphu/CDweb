@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { User } from '../../type';
 
 interface UsersTableProps {
@@ -7,9 +7,20 @@ interface UsersTableProps {
 }
 
 const UsersTable: React.FC<UsersTableProps> = ({ users, toggleBlock }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 7; // Số lượng người dùng trên mỗi trang
+
+  // Tính toán index của người dùng bắt đầu và kết thúc trên trang hiện tại
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
   const handleToggleBlock = (userId: string) => {
     toggleBlock(userId);
+  };
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -30,7 +41,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, toggleBlock }) => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {currentUsers.map((user) => (
               <tr key={user._id} className={user.blocked ? "bg-red-200" : "hover:bg-gray-100"}>
                 <td className="p-3 px-5">
                   <input type="text" defaultValue={user.name} className="bg-transparent" />
@@ -65,6 +76,25 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, toggleBlock }) => {
             ))}
           </tbody>
         </table>
+      </div>
+      {/* Phân trang */}
+      <div className="pagination flex justify-center">
+        <ul className="flex list-none rounded-md">
+          {Array.from({ length: Math.ceil(users.length / usersPerPage) }, (_, index) => (
+            <li key={index} className="mx-1">
+              <button
+                className={`px-3 py-1 ${
+                  currentPage === index + 1
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-white text-blue-500'
+                } rounded-md hover:bg-blue-200 focus:outline-none`}
+                onClick={() => paginate(index + 1)}
+              >
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

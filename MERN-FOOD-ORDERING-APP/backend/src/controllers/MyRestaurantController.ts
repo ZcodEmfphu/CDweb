@@ -126,6 +126,32 @@ const uploadImage = async (file: Express.Multer.File) => {
   const uploadResponse = await cloudinary.v2.uploader.upload(dataURI);
   return uploadResponse.url;
 };
+const getAllRestaurants = async (req: Request, res: Response) => {
+  try {
+    const restaurants = await Restaurant.find();
+    res.json(restaurants);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Can't get restaurants" });
+  }
+};
+const deleteRestaurant = async (req: Request, res: Response) => {
+  try {
+    const { restaurantId } = req.query;
+
+    const restaurant = await Restaurant.findById(restaurantId);
+    if (!restaurant) {
+      return res.status(404).json({ message: "Restaurant not found" });
+    }
+
+    await restaurant.deleteOne();
+
+    res.json("Restaurant deleted successful");
+  } catch (error) {
+    console.error("Error deleting restaurant:", error);
+    res.status(500).json({ message: "Error deleting restaurant" });
+  }
+};
 
 export default {
   updateOrderStatus,
@@ -133,4 +159,6 @@ export default {
   getMyRestaurant,
   createMyRestaurant,
   updateMyRestaurant,
+  getAllRestaurants,
+  deleteRestaurant,
 };

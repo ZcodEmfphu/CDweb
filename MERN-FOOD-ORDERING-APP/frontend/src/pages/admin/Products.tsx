@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Restaurant } from "../../type";
-import RestaurantsTable from "@/components/ui/restaurantTable";
+import { MenuItem, Restaurant } from "../../type";
 import {  useAuth0 } from "@auth0/auth0-react";
+import ProductTable from "@/components/ui/productTable";
 
 
-const Restaurants: React.FC = () => {
+const Products: React.FC = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [restaurants, setRestaurant] = useState<Restaurant[]>([]);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
   const { getAccessTokenSilently } = useAuth0();
 
@@ -34,11 +35,21 @@ const Restaurants: React.FC = () => {
          deliveryPrice: item.deliveryPrice,
          estimatedDeliveryTime:item.estimatedDeliveryTime,
          cuisines: item.cuisines,
-         menuItem: item.menuItem,
+         menuItems: item.menuItems,
          imageUrl: item.imageUrl,
          lastUpdated: item.lastUpdated,
       }));
-      setRestaurants(restaurantsData);
+      setRestaurant(restaurantsData);
+
+      const collectMenuItems = () => {
+        let collectedItems: MenuItem[] = [];
+        restaurantsData.forEach((restaurant) => {
+            collectedItems = [...collectedItems, ...restaurant.menuItems];
+        });
+        return collectedItems;
+    };
+    const allMenuItems = collectMenuItems();
+    setMenuItems(allMenuItems);
     } catch (error) {
       console.error('Error fetching restaurants:', error);
     }
@@ -51,9 +62,9 @@ const Restaurants: React.FC = () => {
 
   return (
     <main className="main-container">
-      <RestaurantsTable restaurants={restaurants} fetchRestaurants={fetchRestaurants} />
+      <ProductTable products={menuItems}/>
     </main>
   );
 };
 
-export default Restaurants;
+export default Products;

@@ -172,9 +172,19 @@ const createSession = async (
 
   return sessionData;
 };
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const orders = await Order.find();
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Can't get orders" });
+  }
+};
 
 export default {
   getMyOrders,
   createCheckoutSession,
   stripeWebhookHandler,
+  getAllOrders,
 };

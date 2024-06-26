@@ -14,6 +14,7 @@ router.post(
 );
 
 router.post("/checkout/webhook", OrderController.stripeWebhookHandler);
+router.get("/getAllOrder", OrderController.getAllOrders);
 
 
 export default router;

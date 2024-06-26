@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import Sidebar from './Sidebar'
-import Restaurants from './Restaurants'
+import Orders from './Orders'
 import './App.css'
 
-function RestaurantPage() {
+function OrderPage() {
 
     const [openSidebarToggle, srtOpenSidebarToggle] = useState(false);
 
@@ -14,10 +14,10 @@ function RestaurantPage() {
     return (
         <div className="grid-container">
             <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
-            <Restaurants />
+            <Orders />
         </div>
     )
 }
 
 
-export default RestaurantPage
+export default OrderPage

@@ -48,4 +48,7 @@ router.put(
   MyRestaurantController.updateMyRestaurant
 );
 
+router.get("/getAllRestaurant", jwtParse, MyRestaurantController.getAllRestaurants);
+router.delete("/",jwtParse, MyRestaurantController.deleteRestaurant);
+
 export default router;

@@ -29,14 +29,6 @@ export type Restaurant = {
   lastUpdated: string;
 };
 
-export type RestaurantSearchResponse = {
-  data: Restaurant[];
-  pagination: {
-    total: number;
-    page: number;
-    pages: number;
-  };
-};
 export type OrderStatus =
   | "placed"
   | "paid"
@@ -63,4 +55,13 @@ export type Order = {
   status: OrderStatus;
   createdAt: string;
   restaurantId: string;
+};
+
+export type RestaurantSearchResponse = {
+  data: Restaurant[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
 };

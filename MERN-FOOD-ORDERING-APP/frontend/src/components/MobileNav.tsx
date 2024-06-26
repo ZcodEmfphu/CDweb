@@ -13,11 +13,11 @@ import MobileNavLinks from "./MobileNavLinks";
 
 const MobileNav = () => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
-  
+
   return (
     <Sheet>
       <SheetTrigger>
-        <Menu className="text-blue-500" />
+        <Menu className="text-orange-500" />
       </SheetTrigger>
       <SheetContent className="space-y-3">
         <SheetTitle>
@@ -27,7 +27,7 @@ const MobileNav = () => {
               {user?.email}
             </span>
           ) : (
-            <span>Welcome to MernApp.com !</span>
+            <span> Welcome to MernEats.com!</span>
           )}
         </SheetTitle>
         <Separator />
@@ -39,7 +39,7 @@ const MobileNav = () => {
               onClick={() => loginWithRedirect()}
               className="flex-1 font-bold bg-blue-500"
             >
-              Log in
+              Log In
             </Button>
           )}
         </SheetDescription>
@@ -47,4 +47,5 @@ const MobileNav = () => {
     </Sheet>
   );
 };
+
 export default MobileNav;

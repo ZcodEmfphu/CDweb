@@ -1,6 +1,7 @@
 import { useGetMyUser, useUpdateMyUser } from "@/api/MyUserApi";
 import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
 import { Navigate } from "react-router-dom";
+
 const UserProfilePage = () => {
   const { currentUser, isLoading: isGetLoading } = useGetMyUser();
   const { updateUser, isLoading: isUpdateLoading } = useUpdateMyUser();

@@ -28,7 +28,6 @@ const SearchPage = () => {
 
   const { results, isLoading } = useSearchRestaurants(searchState, city);
 
-  // Filter
   const setSortOption = (sortOption: string) => {
     setSearchState((prevState) => ({
       ...prevState,
@@ -45,7 +44,6 @@ const SearchPage = () => {
     }));
   };
 
-  // Pageing
   const setPage = (page: number) => {
     setSearchState((prevState) => ({
       ...prevState,
@@ -53,7 +51,6 @@ const SearchPage = () => {
     }));
   };
 
-  // Search
   const setSearchQuery = (searchFormData: SearchForm) => {
     setSearchState((prevState) => ({
       ...prevState,
@@ -62,7 +59,6 @@ const SearchPage = () => {
     }));
   };
 
-  // Reset Search
   const resetSearch = () => {
     setSearchState((prevState) => ({
       ...prevState,
@@ -98,7 +94,6 @@ const SearchPage = () => {
           placeHolder="Search by Cuisine or Restaurant Name"
           onReset={resetSearch}
         />
-
         <div className="flex justify-between flex-col gap-3 lg:flex-row">
           <SearchResultInfo total={results.pagination.total} city={city} />
           <SortOptionDropdown
